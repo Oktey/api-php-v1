@@ -44,12 +44,12 @@ class Client
 
     private function _call($method, $url, array $args = [])
     {
-        return (new \Oktey\Api\Request($method, $url, $args))->call(true);
+        return (new \Oktey\Api\Request($method, $url, $args, $this->key, $this->secret))->call(true);
     }
 
     public function get(string $url, array $args = [])
     {
-        $response = $this->_call('GET', $this->getApiUrl() . $url, $args);
+        $response = $this->_call('POST', $this->getApiUrl() . $url, $args);
 
         return $response;
     }

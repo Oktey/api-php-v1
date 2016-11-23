@@ -5,12 +5,24 @@ namespace Oktey\Api;
 class Request extends \GuzzleHttp\Client
 {
     /**
+     * Api key
+     * @var string or null
+     */
+    private $key = null;
+
+    /**
+     * Api secret
+     * @var string or null
+     */
+    private $secret = null;
+
+    /**
      * Build a new Http request
      * @param string $method  http method
      * @param string $url     call url
      * @param array  $args    Request args
      */
-    public function __construct($method, $url, $args)
+    public function __construct($method, $url, $args, $key, $secret)
     {
         parent::__construct(['defaults' => [
             'headers' => [
@@ -20,12 +32,16 @@ class Request extends \GuzzleHttp\Client
         $this->method = $method;
         $this->url = $url;
         $this->args = $args;
+        $this->key = $key;
+        $this->secret = $secret;
     }
 
     public function call() {
+
+        $this->signRequest();
+
         $payload = [
-            'headers'  => ['content-type' => 'text/json'],
-            'json' => $this->args,
+            'form_params' => $this->args,
         ];
 
         try {
@@ -39,5 +55,31 @@ class Request extends \GuzzleHttp\Client
         }
 
         return new \Oktey\Api\Response($this, $response);
+    }
+
+    private function signRequest()
+    {
+
+        // date time in UTC format
+        $DateTime = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->args['timestamp'] = $DateTime->format('c');
+
+        // Uniq id
+        $this->args['uniqid'] = hash('sha256', openssl_random_pseudo_bytes(64, $strongSource));
+
+        // Url
+        $this->args['url'] = $this->url;
+
+        // key
+        $this->args['key'] = $this->key;
+
+        $args = [];
+        foreach($this->args as $k => $v) {
+            $args[] = $k . '=' . $v;
+        }
+
+        $binKey = pack("H*", $this->secret);
+
+        $this->args['hmac'] = strtoupper(hash_hmac('sha512', implode('&',$args), $binKey));
     }
 }
