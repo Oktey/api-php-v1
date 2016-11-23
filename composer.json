@@ -1,6 +1,6 @@
 {
-    "name": "oktey/api",
-    "description": "Api client for Oktey services",
+    "name": "oktey/api-v1",
+    "description": "Api client for Oktey services - version 1",
     "type": "project",
     "keywords": ["oktey", "api", "altospam", "mailout"],
     "homepage": "http://www.altospam.com/",
