@@ -51,7 +51,7 @@ class Client
     {
         $response = $this->_call('GET', $this->getApiUrl() . $url, $args);
 
-        var_dump($response);
+        return $response;
     }
 
 }
