@@ -6,6 +6,8 @@ class Client
 {
     const WRAPPER_VERSION = 'v1.0.0';
 
+    static public $debug = false;
+
     /**
      * Api key
      * @var string or null
@@ -52,6 +54,11 @@ class Client
         $response = $this->_call('POST', $this->getApiUrl() . $url, $args);
 
         return $response;
+    }
+
+    public function debug($debug = false)
+    {
+        self::$debug = $debug;
     }
 
 }
