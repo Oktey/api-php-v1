@@ -6,12 +6,10 @@
     "homepage": "http://www.altospam.com/",
     "authors": [
         {
-            "name": "Stéphane Manhes",
-            "email": "smanhes@oktey.com"
+            "name": "Stéphane Manhes"
         },
         {
-            "name": "Erwane Breton",
-            "email": "ebreton@oktey.com"
+            "name": "Erwane Breton"
         }
     ],
     "license": "MIT",
