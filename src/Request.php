@@ -36,7 +36,7 @@ class Request extends \GuzzleHttp\Client
         $this->secret = $secret;
     }
 
-    public function call() {
+    public function call($call = true) {
 
         $this->signRequest();
 
@@ -44,14 +44,17 @@ class Request extends \GuzzleHttp\Client
             'form_params' => $this->args,
         ];
 
-        try {
-            $response = call_user_func_array(
-                array($this, strtolower($this->method)), [
-                $this->url, $payload]
-            );
-        }
-        catch (\GuzzleHttp\Exception\ClientException $e) {
-            $response = $e->getResponse();
+        $response = null;
+        if ($call) {
+            try {
+                $response = call_user_func_array(
+                    array($this, strtolower($this->method)), [
+                    $this->url, $payload]
+                );
+            }
+            catch (\GuzzleHttp\Exception\ClientException $e) {
+                $response = $e->getResponse();
+            }
         }
 
         return new \Oktey\Api\Response($this, $response);
@@ -80,4 +83,5 @@ class Request extends \GuzzleHttp\Client
 
         $this->args['hmac'] = strtoupper(hash('sha512', implode('&',$args) . $this->secret));
     }
+
 }
