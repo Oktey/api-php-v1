@@ -16,8 +16,7 @@
     ],
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/erwane/api/issues",
-        "wiki": "https://github.com/erwane/api/wiki"
+        "issues": "https://github.com/erwane/api/issues"
     },
     "require": {
         "php": ">=5.6.0",
