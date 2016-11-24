@@ -78,8 +78,6 @@ class Request extends \GuzzleHttp\Client
             $args[] = $k . '=' . $v;
         }
 
-        $binKey = pack("H*", $this->secret);
-
-        $this->args['hmac'] = strtoupper(hash_hmac('sha512', implode('&',$args), $binKey));
+        $this->args['hmac'] = strtoupper(hash('sha512', implode('&',$args) . $this->secret));
     }
 }
