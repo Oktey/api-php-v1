@@ -1,5 +1,7 @@
 <?php
 
+namespace Oktey\Api\Test;
+
 use PHPUnit\Framework\TestCase;
 
 use Oktey\Api\Request;
