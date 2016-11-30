@@ -55,6 +55,9 @@ class Request extends \GuzzleHttp\Client
             catch (\GuzzleHttp\Exception\ClientException $e) {
                 $response = $e->getResponse();
             }
+            catch (\GuzzleHttp\Exception\ServerException $e) {
+                $response = $e->getResponse();
+            }
         }
 
         return new \Oktey\Api\Response($this, $response);
