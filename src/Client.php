@@ -56,8 +56,11 @@ class Client
         return $response;
     }
 
-    public function debug($debug = false)
+    public function debug($debug = null)
     {
+        if ($debug === null) {
+            return self::$debug;
+        }
         self::$debug = $debug;
     }
 
