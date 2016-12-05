@@ -56,6 +56,19 @@ class Client
         return $response;
     }
 
+    /**
+     * call API with post data
+     * @param  string $url  short api url
+     * @param  array  $args POST data
+     * @return Response
+     */
+    public function post(string $url, array $args = [])
+    {
+        $response = $this->_call('POST', $this->getApiUrl() . $url, $args);
+
+        return $response;
+    }
+
     public function debug($debug = null)
     {
         if ($debug === null) {
