@@ -11,6 +11,8 @@ class RequestTest extends TestCase
     private $args = [
         'contact_name'  => "Erwane Breton",
         'contact_email' => "noreply@oktey.com",
+        'has_mailin' => true,
+        'has_mailout' => false,
     ];
 
     private $key = 'abcdef';
@@ -68,6 +70,10 @@ class RequestTest extends TestCase
         foreach($Request->args as $k => $v) {
             if ($k === 'hmac') {
                 continue;
+            }
+
+            if (is_bool($v)) {
+                $v = $v ? 1 : 0;
             }
 
             $args[] = $k . '=' . $v;

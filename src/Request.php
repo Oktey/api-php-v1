@@ -81,6 +81,9 @@ class Request extends \GuzzleHttp\Client
 
         $args = [];
         foreach($this->args as $k => $v) {
+            if (is_bool($v)) {
+                $v = $v ? 1 : 0;
+            }
             $args[] = $k . '=' . $v;
         }
 
