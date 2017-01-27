@@ -66,20 +66,11 @@ class RequestTest extends TestCase
 
     private function checkHmac(Request $Request, $secret)
     {
-        $args = [];
-        foreach($Request->args as $k => $v) {
-            if ($k === 'hmac') {
-                continue;
-            }
+        $req = clone $Request;
+        $hmac = $req->args['hmac'];
+        unset($req->args['hmac']);
 
-            if (is_bool($v)) {
-                $v = $v ? 1 : 0;
-            }
-
-            $args[] = $k . '=' . $v;
-        }
-
-        return strtoupper(hash('sha512', implode('&',$args) . $secret)) === $Request->args['hmac'];
+        return strtoupper(hash('sha512', json_encode($req->args) . $secret)) === $hmac;
     }
 
 }

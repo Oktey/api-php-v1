@@ -79,15 +79,24 @@ class Request extends \GuzzleHttp\Client
         // key
         $this->args['key'] = $this->key;
 
-        $args = [];
-        foreach($this->args as $k => $v) {
-            if (is_bool($v)) {
-                $v = $v ? 1 : 0;
-            }
-            $args[] = $k . '=' . $v;
-        }
+        // transtypage for json
+        $this->args = $this->_argsToJson($this->args);
 
-        $this->args['hmac'] = strtoupper(hash('sha512', implode('&',$args) . $this->secret));
+        $this->args['hmac'] = strtoupper(hash('sha512', json_encode($this->args) . $this->secret));
+    }
+
+    private function _argsToJson($ary)
+    {
+        foreach($ary as $k => &$v) {
+            if (is_array($v)) {
+                $v = $this->_argsToJson($v);
+            } elseif (is_bool($v)) {
+                $v = $v ? '1' : '0'; // To string
+            } elseif (is_numeric($v)) {
+                $v = (string)$v; // To string
+            }
+        }
+        return $ary;
     }
 
 }
