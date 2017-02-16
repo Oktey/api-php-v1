@@ -33,7 +33,7 @@ class Client
     protected $Http = null;
 
 
-    public function __construct(string $key, string $secret)
+    public function __construct($key, $secret)
     {
         $this->key = $key;
         $this->secret = $secret;
@@ -49,7 +49,7 @@ class Client
         return (new \Oktey\Api\Request($method, $url, $args, $this->key, $this->secret))->call(true);
     }
 
-    public function get(string $url, array $args = [])
+    public function get($url, array $args = [])
     {
         $response = $this->_call('POST', $this->getApiUrl() . $url, $args);
 
@@ -62,7 +62,7 @@ class Client
      * @param  array  $args POST data
      * @return Response
      */
-    public function post(string $url, array $args = [])
+    public function post($url, array $args = [])
     {
         $response = $this->_call('POST', $this->getApiUrl() . $url, $args);
 
