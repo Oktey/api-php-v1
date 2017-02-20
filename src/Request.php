@@ -24,11 +24,14 @@ class Request extends \GuzzleHttp\Client
      */
     public function __construct($method, $url, $args, $key, $secret)
     {
-        parent::__construct(['defaults' => [
-            'headers' => [
-                'user-agent' => 'OkteyApi/' . \Oktey\Api\Client::WRAPPER_VERSION
-            ]
-        ]]);
+        parent::__construct([
+            'defaults' => [
+                'headers' => [
+                    'user-agent' => 'OkteyApi/' . \Oktey\Api\Client::WRAPPER_VERSION
+                ],
+            ],
+            'verify' => false,
+        ]);
         $this->method = $method;
         $this->url = $url;
         $this->args = $args;
