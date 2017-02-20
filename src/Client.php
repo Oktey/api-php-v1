@@ -41,7 +41,7 @@ class Client
 
     private function _getApiUrl()
     {
-        return 'http://192.168.33.52/v' . $this->version ;
+        return 'https://api.oktey.com/v' . $this->version ;
     }
 
     public function url($url)
