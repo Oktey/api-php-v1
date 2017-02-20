@@ -54,6 +54,16 @@ class Response
     }
 
     /**
+     * Data getter
+     * return the datas
+     * @return int count
+     */
+    public function getData()
+    {
+        return (array)$this->body['data'];
+    }
+
+    /**
      * Total getter
      * return the total count of all results
      * @return int count
