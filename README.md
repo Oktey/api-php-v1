@@ -12,7 +12,6 @@ composer require oktey/api-php-v1
 ## Usage
 ```php
 <?php
-
 namespace App;
 
 // Utiliser l'autoloader composer
@@ -20,19 +19,19 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Oktey\Api\Client;
 
-// Identifiant API
-$apiId = "abcdef";
-
-// Clé secrète API
-$apiSecret = "abcdef123456";
-
 // Création de l'objet API
-$Oktey = new Client($apiId, $apiSecret);
+$Api = new Client('apiId', 'apiSecret');
 
 // Requête sur l'api
-$clients = $Oktey->get('/customers/lite');
+$response = $Api->get('/customers/lite');
 
-// Lecture :)
-var_dump($clients->getBody());
+if ($response->success()) {
+    // Récupération des données
+    $customers = $response->getData();
+
+    // affichage ;)
+    var_dump($customers);
+}
+
 ```
 
