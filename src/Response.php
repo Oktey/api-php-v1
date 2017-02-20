@@ -81,4 +81,13 @@ class Response
     {
         return $this->success;
     }
+
+    /**
+     * Error message getter
+     * @return string message error
+     */
+    public function getMessageError()
+    {
+        return !empty($this->body['error_message']) ? $this->body['error_message'] : null;
+    }
 }
