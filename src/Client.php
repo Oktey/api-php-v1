@@ -39,9 +39,19 @@ class Client
         $this->secret = $secret;
     }
 
-    private function getApiUrl()
+    private function _getApiUrl()
     {
         return 'http://192.168.33.52/v' . $this->version ;
+    }
+
+    public function url($url)
+    {
+        if (strpos($url, '/') !== 0) {
+            $url = '/' . $url;
+        }
+
+        return $this->_getApiUrl() . $url;
+
     }
 
     private function _call($method, $url, array $args = [])
@@ -51,7 +61,7 @@ class Client
 
     public function get($url, array $args = [])
     {
-        $response = $this->_call('POST', $this->getApiUrl() . $url, $args);
+        $response = $this->_call('POST', $this->url($url), $args);
 
         return $response;
     }
@@ -64,7 +74,7 @@ class Client
      */
     public function post($url, array $args = [])
     {
-        $response = $this->_call('POST', $this->getApiUrl() . $url, $args);
+        $response = $this->_call('POST', $this->url($url), $args);
 
         return $response;
     }
