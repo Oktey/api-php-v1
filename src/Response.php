@@ -50,7 +50,7 @@ class Response
      */
     public function getCount()
     {
-        return $this->body['Count'];
+        return (int)$this->body['count'];
     }
 
     /**
