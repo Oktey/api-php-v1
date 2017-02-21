@@ -30,7 +30,7 @@ class Request extends \GuzzleHttp\Client
                     'user-agent' => 'OkteyApi/' . \Oktey\Api\Client::WRAPPER_VERSION
                 ],
             ],
-            'verify' => false,
+            'verify' => true,
             'connect_timeout' => 10,
         ]);
         $this->method = $method;
