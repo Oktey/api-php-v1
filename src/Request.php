@@ -31,6 +31,7 @@ class Request extends \GuzzleHttp\Client
                 ],
             ],
             'verify' => false,
+            'connect_timeout' => 10,
         ]);
         $this->method = $method;
         $this->url = $url;
