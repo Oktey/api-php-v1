@@ -5,9 +5,13 @@
 
 
 ## Installation
-Le plus simple est d'utiliser [composer](https://getcomposer.org/)
+Vu les dépendances utilisées, il est impératif d'utiliser [composer](https://getcomposer.org/)
 ```bash
-composer require oktey/api-php-v1
+# Si composer n'est pas encore installé
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar composer
+
+php composer require oktey/api-php-v1
 ```
 
 ## Usage
@@ -21,7 +25,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Oktey\Api\Client;
 use Exception;
 
-// Display errors for dev
+// Afficher les erreurs en mode développement
 ini_set('display_errors', 1); ini_set('html_errors', 1);
 
 // Création de l'objet API
