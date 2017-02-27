@@ -50,7 +50,7 @@ class Response
      */
     public function getCount()
     {
-        return (int)$this->body['count'];
+        return !empty($this->body['count']) ? (int)$this->body['count'] : 0;
     }
 
     /**
@@ -60,7 +60,7 @@ class Response
      */
     public function getData()
     {
-        return (array)$this->body['data'];
+        return !empty($this->body['data']) ? (array)$this->body['data'] : [];
     }
 
     /**
