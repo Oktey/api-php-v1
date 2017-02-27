@@ -41,7 +41,7 @@ class Client
 
     private function _getApiUrl()
     {
-        return 'https://api.altospam.com/v' . $this->version ;
+        return 'https://api.oktey.com/v' . $this->version ;
     }
 
     public function url($url)
