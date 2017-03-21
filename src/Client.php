@@ -8,6 +8,8 @@ class Client
 
     static public $debug = false;
 
+    private $_testMode = false;
+
     /**
      * Api key
      * @var string or null
@@ -41,7 +43,12 @@ class Client
 
     private function _getApiUrl()
     {
-        return 'https://api.oktey.com/v' . $this->version ;
+        $url = 'https://api.oktey.com/v' . $this->version;
+
+        if ($this->_testMode) {
+            $url .= '-dev';
+        }
+        return $url;
     }
 
     public function url($url)
@@ -84,7 +91,19 @@ class Client
         if ($debug === null) {
             return self::$debug;
         }
-        self::$debug = $debug;
+        self::$debug = (bool)$debug;
     }
 
+    /**
+     * enable or disable test mode
+     * @param  mixed $value  true|false|null
+     * @return bool        if $value is null, return current value
+     */
+    public function testMode($value = null)
+    {
+        if ($value === null) {
+            return $this->_testMode;
+        }
+        $this->_testMode = (bool)$value;
+    }
 }
