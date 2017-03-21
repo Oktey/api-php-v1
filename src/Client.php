@@ -41,7 +41,7 @@ class Client
         $this->secret = $secret;
     }
 
-    private function _getApiUrl()
+    private function getApiUrl()
     {
         $url = 'https://api.oktey.com/v' . $this->version;
 
@@ -57,7 +57,7 @@ class Client
             $url = '/' . $url;
         }
 
-        return $this->_getApiUrl() . $url;
+        return $this->getApiUrl() . $url;
     }
 
     private function _call($method, $url, array $args = [])
