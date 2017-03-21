@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.3
+* change API url to https://api.oktey.com/v
+* Response::getCount() and Response::getData() always return something
+
 ## 1.0.2
 * Request timeout set to 10
 * new Response::getMessageError()
