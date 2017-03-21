@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.4
+* Response::debug() now directly return content instead of Response object
+
 ## 1.0.3
 * change API url to https://api.oktey.com/v
 * Response::getCount() and Response::getData() always return something
