@@ -8,7 +8,7 @@ class Client
 
     static public $debug = false;
 
-    private $_testMode = false;
+    private $testMode = false;
 
     /**
      * Api key
@@ -45,7 +45,7 @@ class Client
     {
         $url = 'https://api.oktey.com/v' . $this->version;
 
-        if ($this->_testMode) {
+        if ($this->testMode) {
             $url .= '-dev';
         }
         return $url;
@@ -101,8 +101,8 @@ class Client
     public function testMode($value = null)
     {
         if ($value === null) {
-            return $this->_testMode;
+            return $this->testMode;
         }
-        $this->_testMode = (bool)$value;
+        $this->testMode = (bool)$value;
     }
 }
