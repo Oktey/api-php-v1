@@ -15,7 +15,7 @@ class Response
         if ($response) {
             $this->status = $response->getStatusCode();
             if (Client::$debug) {
-                $this->body = $response->getBody();
+                $this->body = $response->getBody()->getContents();
             } else {
                 $this->body = json_decode($response->getBody(), true);
             }

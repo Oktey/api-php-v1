@@ -48,7 +48,5 @@ try {
     // Oops !!!
     trigger_error(sprintf('Api Exception %d : %s', $e->getCode(), $e->getMessage()), E_USER_WARNING);
 }
-
-
 ```
 
