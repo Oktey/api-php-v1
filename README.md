@@ -14,6 +14,20 @@ mv composer.phar composer
 php composer require oktey/api-php-v1
 ```
 
+## Fonctionnalités
+Voici les fonctionnalités de l'API ainsi que leurs liens de documentation
+
+**en lecture**
+* [[recherche d'un client|url-list#rechercher-un-client]]
+* [[liste des clients|url-list#liste-de-mes-clients]]
+* [[détail d'un client|url-list#détail-dun-client]]
+
+**en écriture**
+* [[création d'un client|url-list#créer-un-compte-client]]
+* [[création d'une commande de test|url-list#créer-une-commande-de-test]]
+* [[création d'un domaine|url-list#créer-un-domaine]]
+
+
 ## Usage
 ```php
 <?php
