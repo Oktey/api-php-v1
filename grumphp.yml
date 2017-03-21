@@ -1,0 +1,15 @@
+parameters:
+    git_dir: .
+    bin_dir: vendor/bin
+    ascii:
+        failed: ~
+        succeeded: ~
+    tasks:
+        phplint: ~
+        phpunit: ~
+        phpcs:
+            standard: PSR2
+            encoding: UTF-8
+            show_warnings: false
+            whitelist_patterns:
+                - /^src\/(.*)/
