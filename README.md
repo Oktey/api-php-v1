@@ -14,6 +14,20 @@ mv composer.phar composer
 php composer require oktey/api-php-v1
 ```
 
+## Fonctionnalités
+Voici les fonctionnalités de l'API ainsi que leurs liens de documentation
+
+**en lecture**
+* [recherche d'un client](https://github.com/Oktey/api-php-v1/wiki/url-list#rechercher-un-client)
+* [liste des clients](https://github.com/Oktey/api-php-v1/wiki/url-list#liste-de-mes-clients)
+* [détail d'un client](https://github.com/Oktey/api-php-v1/wiki/url-list#détail-dun-client)
+
+**en écriture**
+* [création d'un client](https://github.com/Oktey/api-php-v1/wiki/url-list#créer-un-compte-client)
+* [création d'une commande de test](https://github.com/Oktey/api-php-v1/wiki/url-list#créer-une-commande-de-test)
+* [création d'un domaine](https://github.com/Oktey/api-php-v1/wiki/url-list#créer-un-domaine)
+
+
 ## Usage
 ```php
 <?php
@@ -49,4 +63,3 @@ try {
     trigger_error(sprintf('Api Exception %d : %s', $e->getCode(), $e->getMessage()), E_USER_WARNING);
 }
 ```
-
