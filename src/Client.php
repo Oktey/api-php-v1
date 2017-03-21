@@ -58,7 +58,6 @@ class Client
         }
 
         return $this->_getApiUrl() . $url;
-
     }
 
     private function _call($method, $url, array $args = [])

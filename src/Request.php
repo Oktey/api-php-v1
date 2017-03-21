@@ -40,7 +40,8 @@ class Request extends \GuzzleHttp\Client
         $this->secret = $secret;
     }
 
-    public function call($call = true) {
+    public function call($call = true)
+    {
 
         $this->signRequest();
 
@@ -52,14 +53,13 @@ class Request extends \GuzzleHttp\Client
         if ($call) {
             try {
                 $response = call_user_func_array(
-                    array($this, strtolower($this->method)), [
+                    array($this, strtolower($this->method)),
+                    [
                     $this->url, $payload]
                 );
-            }
-            catch (\GuzzleHttp\Exception\ClientException $e) {
+            } catch (\GuzzleHttp\Exception\ClientException $e) {
                 $response = $e->getResponse();
-            }
-            catch (\GuzzleHttp\Exception\ServerException $e) {
+            } catch (\GuzzleHttp\Exception\ServerException $e) {
                 $response = $e->getResponse();
             }
         }
@@ -91,7 +91,7 @@ class Request extends \GuzzleHttp\Client
 
     private function _argsToJson($ary)
     {
-        foreach($ary as $k => &$v) {
+        foreach ($ary as $k => &$v) {
             if (is_array($v)) {
                 $v = $this->_argsToJson($v);
             } elseif (is_bool($v)) {
@@ -102,5 +102,4 @@ class Request extends \GuzzleHttp\Client
         }
         return $ary;
     }
-
 }
