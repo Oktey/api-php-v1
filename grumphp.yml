@@ -1,6 +1,6 @@
 parameters:
     git_dir: .
-    bin_dir: vendor/bin
+    bin_dir: vendor/<bin></bin>
     ascii:
         failed: ~
         succeeded: ~
@@ -8,8 +8,8 @@ parameters:
         phplint: ~
         phpunit: ~
         phpcs:
-            standard: PSR2
+            standard: CakePHP
             encoding: UTF-8
             show_warnings: false
             whitelist_patterns:
-                - /^src\/(.*)/
+                - /src\/(.*)/
