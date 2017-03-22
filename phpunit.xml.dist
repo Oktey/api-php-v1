@@ -6,4 +6,11 @@
             <file>./tests/RequestTest.php</file>
         </testsuite>
     </testsuites>
+
+    <!-- Ignore vendor tests in code coverage reports -->
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
+    </filter>
 </phpunit>
