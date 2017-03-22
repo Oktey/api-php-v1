@@ -3,7 +3,7 @@
 <phpunit colors="true">
     <testsuites>
         <testsuite name="Test Suite">
-            <file>./tests/RequestTest.php</file>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
