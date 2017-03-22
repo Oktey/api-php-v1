@@ -1,5 +1,4 @@
 <?php
-
 namespace Oktey\Api;
 
 class Response
@@ -8,6 +7,11 @@ class Response
     private $success;
     private $body;
 
+    /**
+     * constructor
+     * @param Oktey\Api\Request $request  Oktey Api request object
+     * @param Psr\Http\Message\ResponseInterface $response Response object
+     */
     public function __construct($request, $response)
     {
         $this->request = $request;
@@ -75,7 +79,7 @@ class Response
 
     /**
      * Success getter
-     * @return boolean true is return code is 2**
+     * @return bool true is return code is 2**
      */
     public function success()
     {
