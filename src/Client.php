@@ -1,13 +1,23 @@
 <?php
-
 namespace Oktey\Api;
 
 class Client
 {
+    /**
+     * Api Version for agent
+     */
     const WRAPPER_VERSION = 'v1.0.0';
 
+    /**
+     * enable or disable the response debug
+     * @var bool
+     */
     static public $debug = false;
 
+    /**
+     * test mode use a "-dev" suffixed url
+     * @var bool
+     */
     private $testMode = false;
 
     /**
@@ -34,13 +44,21 @@ class Client
      */
     protected $Http = null;
 
-
+    /**
+     * constructore
+     * @param string $key    reseller key
+     * @param string $secret reseller secret
+     */
     public function __construct($key, $secret)
     {
         $this->key = $key;
         $this->secret = $secret;
     }
 
+    /**
+     * return the api base url
+     * @return string
+     */
     private function getApiUrl()
     {
         $url = 'https://api.oktey.com/v' . $this->version;
@@ -48,9 +66,15 @@ class Client
         if ($this->testMode) {
             $url .= '-dev';
         }
+
         return $url;
     }
 
+    /**
+     * build api url
+     * @param  string $url requested api url
+     * @return string
+     */
     public function url($url)
     {
         if (strpos($url, '/') !== 0) {
@@ -60,11 +84,24 @@ class Client
         return $this->getApiUrl() . $url;
     }
 
+    /**
+     * call the Api\Request::$method() with args
+     * @param  string $method called method
+     * @param  string $url    api url
+     * @param  array  $args   arguments or data
+     * @return Oktey\Api\Response
+     */
     private function _call($method, $url, array $args = [])
     {
         return (new \Oktey\Api\Request($method, $url, $args, $this->key, $this->secret))->call(true);
     }
 
+    /**
+     * fake get method, only for style
+     * @param  string $url  api url
+     * @param  array  $args url args
+     * @return Oktey\Api\Response
+     */
     public function get($url, array $args = [])
     {
         $response = $this->_call('POST', $this->url($url), $args);
@@ -76,7 +113,7 @@ class Client
      * call API with post data
      * @param  string $url  short api url
      * @param  array  $args POST data
-     * @return Response
+     * @return Oktey\Api\Response
      */
     public function post($url, array $args = [])
     {
@@ -85,6 +122,11 @@ class Client
         return $response;
     }
 
+    /**
+     * api debug status
+     * @param  null|bool $debug status
+     * @return void|bool
+     */
     public function debug($debug = null)
     {
         if ($debug === null) {
@@ -95,8 +137,8 @@ class Client
 
     /**
      * enable or disable test mode
-     * @param  mixed $value  true|false|null
-     * @return bool        if $value is null, return current value
+     * @param  mixed $value     true|false|null
+     * @return void|bool        if $value is null, return current value
      */
     public function testMode($value = null)
     {
