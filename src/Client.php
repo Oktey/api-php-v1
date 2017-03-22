@@ -6,7 +6,7 @@ class Client
     /**
      * Api Version for agent
      */
-    const WRAPPER_VERSION = 'v1.0.0';
+    const WRAPPER_VERSION = 'v1.0.5';
 
     /**
      * enable or disable the response debug

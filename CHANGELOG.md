@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.5 (2017-03-22)
+* clean code
+* add tests
+* more coverage
+
 ## 1.0.4
 * Response::debug() now directly return content instead of Response object
 
