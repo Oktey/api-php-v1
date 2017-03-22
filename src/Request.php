@@ -48,7 +48,7 @@ class Request extends \GuzzleHttp\Client
      */
     public function call($call = true)
     {
-        $this->signRequest();
+        $this->args = $this->signRequest($this->args);
 
         $payload = [
             'form_params' => $this->args,
@@ -75,25 +75,27 @@ class Request extends \GuzzleHttp\Client
      * add POST arguments for signing request
      * @return void
      */
-    private function signRequest()
+    public function signRequest($args)
     {
         // date time in UTC format
         $DateTime = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
-        $this->args['timestamp'] = $DateTime->format('c');
+        $args['timestamp'] = $DateTime->format('c');
 
         // Uniq id
-        $this->args['uniqid'] = hash('sha256', openssl_random_pseudo_bytes(64, $strongSource));
+        $args['uniqid'] = hash('sha256', openssl_random_pseudo_bytes(64, $strongSource));
 
         // Url
-        $this->args['url'] = $this->url;
+        $args['url'] = $this->url;
 
         // key
-        $this->args['key'] = $this->key;
+        $args['key'] = $this->key;
 
         // transtypage for json
-        $this->args = $this->_argsToJson($this->args);
+        $args = $this->_argsToJson($args);
 
-        $this->args['hmac'] = strtoupper(hash('sha512', json_encode($this->args) . $this->secret));
+        $args['hmac'] = strtoupper(hash('sha512', json_encode($args) . $this->secret));
+
+        return $args;
     }
 
     /**

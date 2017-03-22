@@ -47,30 +47,47 @@ class RequestTest extends TestCase
 
     public function testSigningSuccess()
     {
-        $this->Request = new Request('POST', '/customers/lite', $this->args, $this->key, $this->secret);
-        $call = $this->Request->call(false);
+        $args = [
+            'contact_name'  => "Erwane Breton",
+            'contact_email' => "noreply@oktey.com",
+            'has_mailin' => true,
+            'has_mailout' => false,
+            'mailin' => [
+                'dest' => [
+                    'servers' => ['e02.amailor.com'],
+                ],
+            ],
+        ];
 
-        $this->assertEquals($this->checkHmac($this->Request, $this->secret), true);
+        $this->Request = new Request('POST', '/customers', $args, $this->key, $this->secret);
+        $signed = $this->Request->signRequest($args);
+
+        $this->assertEquals($this->checkHmac($signed, $this->secret), true);
     }
 
     public function testSigningFailed()
     {
-        $this->Request = new Request('POST', '/customers/lite', $this->args, $this->key, $this->secret);
-        $call = $this->Request->call(false);
+        $args = [
+            'contact_name'  => "Erwane Breton",
+            'contact_email' => "noreply@oktey.com",
+            'has_mailin' => true,
+            'has_mailout' => false,
+        ];
+        $this->Request = new Request('POST', '/customers', $args, $this->key, $this->secret);
+        $signed = $this->Request->signRequest($args);
 
-        $this->assertEquals($this->checkHmac($this->Request, $this->secret . 'a'), false);
-        $this->assertEquals($this->checkHmac($this->Request, 'a' . $this->secret), false);
-        $this->assertEquals($this->checkHmac($this->Request, $this->secret + 1), false);
-        $this->assertEquals($this->checkHmac($this->Request, $this->secret . 1), false);
+        $this->assertEquals($this->checkHmac($signed, $this->secret . 'a'), false);
+        $this->assertEquals($this->checkHmac($signed, 'a' . $this->secret), false);
+        $this->assertEquals($this->checkHmac($signed, $this->secret + 1), false);
+        $this->assertEquals($this->checkHmac($signed, $this->secret . 1), false);
     }
 
-    private function checkHmac(Request $Request, $secret)
+    private function checkHmac($signed, $secret)
     {
-        $req = clone $Request;
-        $hmac = $req->args['hmac'];
-        unset($req->args['hmac']);
+        $hmac = $signed['hmac'];
+        unset($signed['hmac']);
 
-        return strtoupper(hash('sha512', json_encode($req->args) . $secret)) === $hmac;
+        return strtoupper(hash('sha512', json_encode($signed) . $secret)) === $hmac;
     }
 
 }
