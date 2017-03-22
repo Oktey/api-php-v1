@@ -1,5 +1,4 @@
 <?php
-
 namespace Oktey\Api;
 
 class Request extends \GuzzleHttp\Client
@@ -21,6 +20,8 @@ class Request extends \GuzzleHttp\Client
      * @param string $method  http method
      * @param string $url     call url
      * @param array  $args    Request args
+     * @param string  $key    reseller key
+     * @param string  $secret reseller secret
      */
     public function __construct($method, $url, $args, $key, $secret)
     {
@@ -40,9 +41,13 @@ class Request extends \GuzzleHttp\Client
         $this->secret = $secret;
     }
 
+    /**
+     * call Guzzle method
+     * @param  bool $call really call the method (debug ?)
+     * @return Oktey\Api\Response
+     */
     public function call($call = true)
     {
-
         $this->signRequest();
 
         $payload = [
@@ -53,9 +58,8 @@ class Request extends \GuzzleHttp\Client
         if ($call) {
             try {
                 $response = call_user_func_array(
-                    array($this, strtolower($this->method)),
-                    [
-                    $this->url, $payload]
+                    [$this, strtolower($this->method)],
+                    [$this->url, $payload]
                 );
             } catch (\GuzzleHttp\Exception\ClientException $e) {
                 $response = $e->getResponse();
@@ -67,9 +71,12 @@ class Request extends \GuzzleHttp\Client
         return new \Oktey\Api\Response($this, $response);
     }
 
+    /**
+     * add POST arguments for signing request
+     * @return void
+     */
     private function signRequest()
     {
-
         // date time in UTC format
         $DateTime = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
         $this->args['timestamp'] = $DateTime->format('c');
@@ -89,6 +96,11 @@ class Request extends \GuzzleHttp\Client
         $this->args['hmac'] = strtoupper(hash('sha512', json_encode($this->args) . $this->secret));
     }
 
+    /**
+     * argToJson convert the arguments array to nice formated value array
+     * @param  array $ary arguments
+     * @return array formated
+     */
     private function _argsToJson($ary)
     {
         foreach ($ary as $k => &$v) {
@@ -100,6 +112,7 @@ class Request extends \GuzzleHttp\Client
                 $v = (string)$v; // To string
             }
         }
+
         return $ary;
     }
 }
