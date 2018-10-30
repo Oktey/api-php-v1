@@ -77,7 +77,6 @@ class RequestTest extends TestCase
 
         $this->assertEquals($this->checkHmac($signed, $this->secret . 'a'), false);
         $this->assertEquals($this->checkHmac($signed, 'a' . $this->secret), false);
-        $this->assertEquals($this->checkHmac($signed, $this->secret + 1), false);
         $this->assertEquals($this->checkHmac($signed, $this->secret . 1), false);
     }
 
